@@ -5,6 +5,6 @@ export class HomeController {
   @Get()
   @Render('index.hbs')
   async home(@Query() param) {
-    return { message: '2222' };
+    return { message: '欢迎', code: '1111' };
   }
 }
