@@ -7,7 +7,7 @@ interface Response {
 @Injectable()
 export class TransformInterceptor
   implements NestInterceptor<Response> {
-  intercept(context: ExecutionContext, next: CallHandler, ): Observable<Response> {
+  intercept(context: ExecutionContext, next: CallHandler,): Observable<Response> {
     return next.handle().pipe(map(data => {
       const action = {
         '0000': '系统异常',
@@ -17,16 +17,21 @@ export class TransformInterceptor
       const resData = {
         data,
         state: 1,
-        message: '请求成功',
+        message: '',
       };
-      if (data.code && action[data.code]) {
-        resData.data = null;
+      if (!data) {
+        resData.message = '系统异常';
         resData.state = 0;
-        resData.message = data.message || action[data.toString()];
-      } else if (data && action[data.toString()]) {
-        resData.data = null;
-        resData.state = 0;
-        resData.message = action[data.toString()];
+      } else {
+        if (data.code && action[data.code]) {
+          resData.data = null;
+          resData.state = 0;
+          resData.message = data.message || action[data.toString()];
+        } else if (data && action[data.toString()]) {
+          resData.data = null;
+          resData.state = 0;
+          resData.message = action[data.toString()];
+        }
       }
       return resData;
     }),
