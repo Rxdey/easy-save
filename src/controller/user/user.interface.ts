@@ -1,4 +1,13 @@
-export interface User {
+export interface UpdateUserInterface {
   id: number;
-  name: string;
+  userName?: string;
+  password?: string;
+  nickName?: string;
+  createDate?: string;
+  headImage?: string;
+}
+
+export interface LoginUser {
+  userName: string,
+  password: string
 }

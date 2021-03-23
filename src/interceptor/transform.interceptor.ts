@@ -8,29 +8,27 @@ interface Response {
 export class TransformInterceptor
   implements NestInterceptor<Response> {
   intercept(context: ExecutionContext, next: CallHandler,): Observable<Response> {
-    return next.handle().pipe(map(data => {
+    return next.handle().pipe(map(responseData => {
       const action = {
         '0000': '系统异常',
         '1111': '参数错误',
-        '2222': '非法操作'
+        '2222': '非法操作',
+        '3333': '操作失败',
       };
       const resData = {
-        data,
+        data: responseData,
         state: 1,
-        message: '',
+        message: '请求成功',
       };
-      if (!data) {
-        resData.message = '系统异常';
-        resData.state = 0;
-      } else {
-        if (data.code && action[data.code]) {
+      if (Object.prototype.toString.call(responseData) === '[object Object]') {
+        if(responseData.code && action[responseData.code]) {
           resData.data = null;
           resData.state = 0;
-          resData.message = data.message || action[data.toString()];
-        } else if (data && action[data.toString()]) {
-          resData.data = null;
-          resData.state = 0;
-          resData.message = action[data.toString()];
+          resData.message = responseData.message || action[responseData.code];
+        }
+        if (responseData.data) {
+          resData.data = responseData.data;
+          resData.message = responseData.message || '请求成功';
         }
       }
       return resData;
