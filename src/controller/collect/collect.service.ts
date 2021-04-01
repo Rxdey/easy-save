@@ -34,4 +34,16 @@ export class CollectService {
         collect.desc = desc || collect.desc;
         return await this.collectRepository.save(collect);
     }
+    async deleteCollect(id: number): Promise<CollectEntity | Boolean> {
+        const collect = await this.collectRepository.findOne(id);
+        if (!collect) return false;
+        collect.isShow = 0;
+        return await this.collectRepository.save(collect);
+    }
+    async updateCollectGroup({id, groupId }): Promise<CollectEntity | Boolean> {
+        const collect = await this.collectRepository.findOne(id);
+        if (!collect) return false;
+        collect.groupId = groupId;
+        return await this.collectRepository.save(collect);
+    }
 }

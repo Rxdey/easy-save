@@ -76,8 +76,25 @@ export class CollectController {
     @UseGuards(AuthGuard('jwt'))
     async delete(@CurrentUser() user: JwtUser, @Body() body: CollectEntity) {
         if (!user) return { code: '1111' };
-        const { userId } = user;
         const { id } = body;
         if (!id) return { code: '1111', message: '收藏不存在' }
+        const res = await this.collectService.deleteCollect(id)
+        return res || { code: '1111', message: '该收藏不存在' };
+    }
+    /**
+     * 更新收藏分组
+     *
+     * @param {JwtUser} user
+     * @param {CollectEntity} body
+     * @memberof CollectController
+     */
+    @Post('/setGroup')
+    @UseGuards(AuthGuard('jwt'))
+    async setGroup(@CurrentUser() user: JwtUser, @Body() body: CollectEntity) {
+        const { id, groupId } = body;
+        if (!user || !groupId) return { code: '1111' };
+        if (!id) return { code: '1111', message: '收藏不存在' }
+        const res = await this.collectService.updateCollectGroup({ id, groupId })
+        return res || { code: '1111', message: '该收藏不存在' };
     }
 }
