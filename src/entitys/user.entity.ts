@@ -19,4 +19,5 @@ export class UserEntity {
 
   @Column()
   headImage?: string;
+
 }

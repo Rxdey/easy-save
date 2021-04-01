@@ -8,7 +8,10 @@ interface Response {
 export class TransformInterceptor
   implements NestInterceptor<Response> {
   intercept(context: ExecutionContext, next: CallHandler,): Observable<Response> {
+    const ctx = context.switchToHttp();
+    const request = ctx.getRequest();
     return next.handle().pipe(map(responseData => {
+      // console.log(responseData);
       const action = {
         '0000': '系统异常',
         '1111': '参数错误',

@@ -1,7 +1,7 @@
 import { Controller, Get, Post, Body, Headers, Response, Param, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { UserService } from './user.service';
-import { UpdateUserInterface, LoginUser } from './user.interface';
+import { UserEntity } from '../../entitys/user.entity';
 import { AuthService } from '../auth/auth.service';
 
 @Controller('user')
@@ -29,7 +29,7 @@ export class UserController {
   // 更新用户信息(不包括账号密码)
   @UseGuards(AuthGuard('jwt'))
   @Post('/update')
-  async updateUser(@Body() body: UpdateUserInterface) {
+  async updateUser(@Body() body: UserEntity) {
     const { id } = body;
     if (!id) return { code: '1111' };
     delete body.password

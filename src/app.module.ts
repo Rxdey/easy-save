@@ -2,9 +2,12 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Connection } from 'typeorm';
 import { HomeController } from './controller/home/home.controller';
-import { UserModule } from './controller/user/user.module';
 import { UserController } from './controller/user/user.controller';
+import { GroupController } from './controller/group/group.controller';
+
+import { UserModule } from './controller/user/user.module';
 import { AuthModule } from './controller/auth/auth.module';
+import { GroupModule } from './controller/group/group.module';
 
 @Module({
   imports: [TypeOrmModule.forRoot({
@@ -18,9 +21,10 @@ import { AuthModule } from './controller/auth/auth.module';
     entities: [__dirname + '/**/*.entity{.ts,.js}'],
   }),
     UserModule,
-    AuthModule
+    AuthModule,
+    GroupModule
   ],
-  controllers: [HomeController, UserController],
+  controllers: [HomeController, UserController, GroupController],
   providers: []
 })
 export class AppModule {

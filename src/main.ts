@@ -17,8 +17,8 @@ async function bootstrap() {
   app.setBaseViewsDir(join(__dirname, '..', 'views'));
   app.setViewEngine('hbs');
   // 全局注册错误的过滤器
-  app.useGlobalFilters(new HttpExceptionFilter());
   app.useGlobalInterceptors(new TransformInterceptor());
+  app.useGlobalFilters(new HttpExceptionFilter());
   // CORS
   app.use((req: any, res: any, next: any) => {
     if (req.path !== '/' && !req.path.includes('.')) {
