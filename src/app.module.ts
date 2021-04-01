@@ -4,10 +4,12 @@ import { Connection } from 'typeorm';
 import { HomeController } from './controller/home/home.controller';
 import { UserController } from './controller/user/user.controller';
 import { GroupController } from './controller/group/group.controller';
+import { CollectController } from './controller/collect/collect.controller';
 
 import { UserModule } from './controller/user/user.module';
 import { AuthModule } from './controller/auth/auth.module';
 import { GroupModule } from './controller/group/group.module';
+import { CollectModule } from './controller/collect/collect.module';
 
 @Module({
   imports: [TypeOrmModule.forRoot({
@@ -22,9 +24,10 @@ import { GroupModule } from './controller/group/group.module';
   }),
     UserModule,
     AuthModule,
-    GroupModule
+    GroupModule,
+    CollectModule
   ],
-  controllers: [HomeController, UserController, GroupController],
+  controllers: [HomeController, UserController, GroupController, CollectController],
   providers: []
 })
 export class AppModule {

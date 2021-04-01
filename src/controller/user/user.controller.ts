@@ -49,4 +49,9 @@ export class UserController {
     };
     return action[authResult.code] || action[0];
   }
+  // 关闭注册
+  // @Post('/regist')
+  // async regist(@Body() registParams: any) {
+  //   const { userName, password } = registParams;
+  // }
 }

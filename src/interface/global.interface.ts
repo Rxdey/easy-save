@@ -4,6 +4,6 @@ export interface Global {
 }
 
 export interface JwtUser {
-    userId: string,
+    userId: number,
     userName: string
 }

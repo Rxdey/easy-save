@@ -11,13 +11,13 @@ export class UserEntity {
   @Column({ length: 32 })
   password: string;
 
-  @Column({ length: 16 })
-  nickName?: string;
+  @Column({ length: 16, nullable: true })
+  nickName: string;
 
   @Column('datetime')
   createDate: string;
 
-  @Column()
-  headImage?: string;
+  @Column({ nullable: true })
+  headImage: string;
 
 }
